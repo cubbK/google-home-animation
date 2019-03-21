@@ -1,19 +1,19 @@
 import React from "react";
-import phone from "./phone/nokia.jpg";
+import phone from "./phone/phone.png";
+import backIcon from "./phone/back-icon.png";
 import styled from "styled-components";
 
-const Container = styled.div`
-  max-height: 1000px;
-  max-width: 1000px;
-  background-image: ${phone};
-  height: 40px;
-  width: 40px;
+const Image = styled.div`
+  width: 449px;
+  height: 553px;
+  background: url(${phone});
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(15px 15px 2px rgba(0,0,0,0.75));
 `;
 
 function Phone(props) {
-  return (
-    <Container />
-  );
+  return <Image>{props.children}</Image>;
 }
 
 export default Phone;
