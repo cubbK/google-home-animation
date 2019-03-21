@@ -15,7 +15,9 @@ class App extends Component {
   render() {
     return (
       <Container>
-        <Phone />
+        <Phone>
+          <Phone.Bar />
+        </Phone>
       </Container>
     );
   }
