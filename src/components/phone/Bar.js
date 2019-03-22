@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import backIcon from "./bar/back-icon.png";
 import homeIcon from "./bar/home-icon.png";
 import menuIcon from "./bar/menu-icon.png";
 import { useSpring, animated, config } from "react-spring";
-import { easeExpOut, easeElasticIn } from "d3-ease"
+import { easeExpOut, easeElasticIn } from "d3-ease";
+import ClickNHold from "react-click-n-hold";
 
 const Container = styled.div`
   width: calc(100% - 140px);
@@ -60,11 +61,23 @@ function Button(props) {
     });
   }
 
+  function endAnimation() {
+    setOutlineStyles({
+      to: { width: "40%", opacity: 0 }
+    });
+  }
+
   return (
-    <ButtonDiv onClick={triggerAnimation}>
-      <img alt="" {...props} />
-      <ButtonOutline style={outlineStyles} />
-    </ButtonDiv>
+    <ClickNHold
+      time={999} // Time to keep pressing. Default is 2
+      onStart={triggerAnimation} // Start callback
+      onEnd={endAnimation}
+    >
+      <ButtonDiv>
+        <img alt="" {...props} />
+        <ButtonOutline style={outlineStyles} />
+      </ButtonDiv>
+    </ClickNHold>
   );
 }
 
