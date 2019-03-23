@@ -26,7 +26,8 @@ const Container = styled(animated.div)`
 export default function Bar(props) {
   const barStyles = useSpring({
     backgroundColor:
-      props.theme === "dark" ? "rgba(250,250,250,1)" : "rgba(250,250,250,0)"
+      props.theme === "dark" ? "rgba(250,250,250,1)" : "rgba(250,250,250,0)",
+      config: { tension: 1000, friction: 50, clamp: true }
   });
   return (
     <Container style={barStyles}>

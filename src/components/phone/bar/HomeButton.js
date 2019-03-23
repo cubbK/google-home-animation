@@ -1,12 +1,9 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import { useSpring, animated } from "react-spring";
 import ClickNHold from "react-click-n-hold";
 import {
-  easeExpIn,
-  easeBounceIn,
-  easeBounceInOut,
   easeElasticIn
 } from "d3-ease";
 
@@ -57,7 +54,6 @@ const GoogleDotGreen = styled(GoogleDot)`
 `;
 
 export default function HomeButton(props) {
-  const toContinueAnimation = useRef(true);
 
   const config = {
     tension: 2600,
@@ -75,7 +71,7 @@ export default function HomeButton(props) {
     config: config
   }));
 
-  const [googleDotRedStyles, setGoogleDotRedStyles, stop] = useSpring(() => ({
+  const [googleDotRedStyles, setGoogleDotRedStyles] = useSpring(() => ({
     from: { marginTop: "0px", marginLeft: "0px" },
     config: config
   }));

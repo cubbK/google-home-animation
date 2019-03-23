@@ -8,12 +8,12 @@ import iconLeft from "./popup/popup-icon-left.png";
 import iconRight from "./popup/popup-icon-right.png";
 
 const Container = styled(animated.div)`
-  width: calc(100% - 60px);
+  width: calc(100% - 50px);
   height: calc(53% - 75px);
   padding-top: 20px;
   padding-bottom: 55px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 25px;
+  padding-right: 25px;
   background-color: #fff;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -33,6 +33,7 @@ const PopupTopCircles = styled.img`
   display: block;
   box-sizing: border-box;
   margin-bottom: 10px;
+  transform: scale(0.8);
 `;
 
 const BubbleWithText = styled.div`
