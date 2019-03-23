@@ -99,6 +99,17 @@ export default function HomeButton() {
     setGoogleDotGreenStyles({ to: { marginLeft: "26px" } });
     setGoogleDotYellowStyles({ to: { marginTop: "0px", marginLeft: "9px" } });
     setGoogleDotRedStyles({ to: { marginTop: "0px", marginLeft: "-9px" } });
+
+    await delay(150)
+
+    setOuterCircleStyles({ to: { width: "14px", height: "14px", opacity: 1 } });
+    setInnerCircleStyles({
+      to: { width: "11px", height: "11px", opacity: 1 }
+    });
+    setGoogleDotBlueStyles({ to: { marginLeft: "0px" } });
+    setGoogleDotGreenStyles({ to: { marginLeft: "0px" } });
+    setGoogleDotYellowStyles({ to: { marginLeft: "0px" } });
+    setGoogleDotRedStyles({ to: { marginLeft: "0px" } });
   }
 
   function endAnimation() {
