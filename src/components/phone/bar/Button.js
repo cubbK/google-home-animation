@@ -6,7 +6,7 @@ import ClickNHold from "react-click-n-hold";
 
 const ButtonDiv = styled.div`
   position: relative;
-  height: 100%;
+  height: 35px;
   width: 80px;
   border-radius: 20px;
   display: flex;
