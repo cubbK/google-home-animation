@@ -9,7 +9,7 @@ const googleColors = {
   blue: "#4285F4",
   yellow: "#F4B400",
   green: "#0F9D58"
-}
+};
 
 const CircleOuter = styled(animated.div)`
   position: absolute;
@@ -35,44 +35,81 @@ const GoogleDot = styled(animated.div)`
   border-radius: 50%;
   width: 7px;
   height: 7px;
-`
+`;
 
 const GoogleDotRed = styled(GoogleDot)`
   background-color: ${googleColors.red};
-`
+`;
 const GoogleDotBlue = styled(GoogleDot)`
   background-color: ${googleColors.blue};
-`
+`;
 const GoogleDotYellow = styled(GoogleDot)`
   background-color: ${googleColors.yellow};
-`
+`;
 const GoogleDotGreen = styled(GoogleDot)`
   background-color: ${googleColors.green};
-`
+`;
 
 export default function HomeButton() {
   const [outerCircleStyles, setOuterCircleStyles] = useSpring(() => ({
-    from: { width: "14px", height: "14px" },
+    from: { width: "14px", height: "14px", opacity: 1 },
     config: { tension: 550 }
   }));
 
   const [innerCircleStyles, setInnerCircleStyles] = useSpring(() => ({
-    from: { width: "11px", height: "11px" },
+    from: { width: "11px", height: "11px", opacity: 1 },
     config: { tension: 550 }
   }));
 
-  function triggerAnimation() {
-    setOuterCircleStyles({ to: { width: "0px", height: "0px" } });
+  const [googleDotRedStyles, setGoogleDotRedStyles] = useSpring(() => ({
+    from: { marginTop: "0px", marginLeft: "0px" },
+    config: { tension: 550 }
+  }));
+  const [googleDotBlueStyles, setGoogleDotBlueStyles] = useSpring(() => ({
+    from: { marginLeft: "0px" },
+    config: { tension: 540 }
+  }));
+  const [googleDotYellowStyles, setGoogleDotYellowStyles] = useSpring(() => ({
+    from: { marginTop: "0px", marginLeft: "0px" },
+    config: { tension: 530 }
+  }));
+  const [googleDotGreenStyles, setGoogleDotGreenStyles] = useSpring(() => ({
+    from: { marginLeft: "0px" },
+    config: { tension: 520 }
+  }));
+
+  async function triggerAnimation() {
+    // helper function
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    setOuterCircleStyles({ to: { width: "0px", height: "0px", opacity: 0 } });
+    setInnerCircleStyles({ to: { width: "8px", height: "8px" } });
+
+    setGoogleDotRedStyles({ to: { marginTop: "-10px" } });
+    setGoogleDotBlueStyles({ to: { marginLeft: "-10px" } });
+    setGoogleDotYellowStyles({ to: { marginTop: "10px" } });
+    setGoogleDotGreenStyles({ to: { marginLeft: "10px" } });
+
+    await delay(500);
+
     setInnerCircleStyles({
-      to: async next => {
-        await next({ width: "8px", height: "8px" });
-      }
+      to: { width: "0px", height: "0px", opacity: 0 }
     });
+    setGoogleDotBlueStyles({ to: { marginLeft: "-26px" } });
+    setGoogleDotGreenStyles({ to: { marginLeft: "26px" } });
+    setGoogleDotYellowStyles({ to: { marginTop: "0px", marginLeft: "9px" } });
+    setGoogleDotRedStyles({ to: { marginTop: "0px", marginLeft: "-9px" } });
   }
 
   function endAnimation() {
-    setOuterCircleStyles({ to: { width: "14px", height: "14px" } });
-    setInnerCircleStyles({ to: { width: "11px", height: "11px" } })
+    setOuterCircleStyles({ to: { width: "14px", height: "14px", opacity: 1 } });
+    setInnerCircleStyles({
+      to: { width: "11px", height: "11px", opacity: 1 }
+    });
+    setGoogleDotRedStyles({ to: { marginTop: "0px", marginLeft: "0px" } });
+    setGoogleDotYellowStyles({ to: { marginTop: "0px", marginLeft: "0px" } });
+    setGoogleDotBlueStyles({ to: { marginLeft: "0px" } });
+    setGoogleDotGreenStyles({ to: { marginLeft: "0px" } });
   }
 
   return (
@@ -83,12 +120,26 @@ export default function HomeButton() {
     >
       <div>
         <Button>
-          <CircleOuter style={outerCircleStyles} />
-          <CircleInner style={innerCircleStyles} />
-          <GoogleDotRed />
-          <GoogleDotBlue />
-          <GoogleDotYellow />
-          <GoogleDotGreen />
+          <CircleOuter
+            style={{
+              ...outerCircleStyles,
+              visibility: outerCircleStyles.opacity.interpolate(o =>
+                o === 0 ? "hidden" : "visible"
+              )
+            }}
+          />
+          <CircleInner
+            style={{
+              ...innerCircleStyles,
+              visibility: innerCircleStyles.opacity.interpolate(o =>
+                o === 0 ? "hidden" : "visible"
+              )
+            }}
+          />
+          <GoogleDotRed style={googleDotRedStyles} />
+          <GoogleDotBlue style={googleDotBlueStyles} />
+          <GoogleDotYellow style={googleDotYellowStyles} />
+          <GoogleDotGreen style={googleDotGreenStyles} />
         </Button>
       </div>
     </ClickNHold>
