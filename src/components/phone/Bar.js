@@ -28,7 +28,6 @@ export default function Bar(props) {
     backgroundColor:
       props.theme === "dark" ? "rgba(250,250,250,1)" : "rgba(250,250,250,0)"
   });
-  console.log(props.theme);
   return (
     <Container style={barStyles}>
       <Button theme={props.theme} {...props.backButtonProps}>

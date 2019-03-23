@@ -33,8 +33,8 @@ class Phone extends React.Component {
 
   render() {
     return (
-      <Image {...this.props}>
-        <Screen>{this.props.children}</Screen>
+      <Image {...this.props} onClick={null}>
+        <Screen onClick={this.props.hidePopup}>{this.props.children}</Screen>
       </Image>
     );
   }

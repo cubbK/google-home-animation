@@ -12,8 +12,15 @@ export default function PhoneContainer() {
     setIsPopupOpen(false);
   }
 
+  function hidePopupOnOutsideClick (e) {
+    e.preventDefault();
+    if (e.target === e.currentTarget) {
+      setIsPopupOpen(false);
+    }
+  }
+
   return (
-    <Phone>
+    <Phone hidePopup={hidePopupOnOutsideClick}>
       <Phone.Bar
         theme={isPopupOpen ? "dark" : "light"}
         homeButtonProps={{ togglePopup: togglePopup, isPopupOpen: isPopupOpen }}
