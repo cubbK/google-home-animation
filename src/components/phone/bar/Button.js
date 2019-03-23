@@ -14,8 +14,12 @@ const ButtonDiv = styled.div`
   align-items: center;
   cursor: pointer;
   user-select: none;
-  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   transition: all 0.1s;
+  filter: ${props =>
+    props.theme === "dark"
+      ? "brightness(0) saturate(100%) invert(37%) sepia(0%) saturate(65%) hue-rotate(163deg) brightness(105%) contrast(80%)"
+      : ""};
   :hover {
     background: rgba(255, 255, 255, 0.15);
   }
@@ -60,7 +64,7 @@ export default function Button(props) {
       onStart={triggerAnimation} // Start callback
       onEnd={endAnimation}
     >
-      <ButtonDiv>
+      <ButtonDiv theme={props.theme} {...props}>
         {props.children}
         <ButtonOutline style={outlineStyles} />
       </ButtonDiv>

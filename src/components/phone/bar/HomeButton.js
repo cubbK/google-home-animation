@@ -24,7 +24,7 @@ const CircleOuter = styled(animated.div)`
   border-radius: 50%;
   border-width: 1px;
   border-style: solid;
-  border-color: #fff;
+  border-color: ${props => (props.theme === "dark" ? "#696969" : "#fff")};
 `;
 
 const CircleInner = styled(animated.div)`
@@ -32,7 +32,7 @@ const CircleInner = styled(animated.div)`
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: ${props => (props.theme === "dark" ? "#696969" : "#fff")};
   z-index: 1;
 `;
 
@@ -59,7 +59,11 @@ const GoogleDotGreen = styled(GoogleDot)`
 export default function HomeButton(props) {
   const toContinueAnimation = useRef(true);
 
-  const config = { tension: 2600, friction: 100, easing: t => easeElasticIn(t) };
+  const config = {
+    tension: 2600,
+    friction: 100,
+    easing: t => easeElasticIn(t)
+  };
 
   const [outerCircleStyles, setOuterCircleStyles] = useSpring(() => ({
     from: { width: "14px", height: "14px", opacity: 1 },
@@ -89,7 +93,6 @@ export default function HomeButton(props) {
   }));
 
   async function triggerAnimation() {
-    
     // helper function
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -158,18 +161,17 @@ export default function HomeButton(props) {
     setGoogleDotBlueStyles({ to: { marginLeft: "0px" } });
     setGoogleDotGreenStyles({ to: { marginLeft: "0px" } });
 
-    if(enough) {
-      if(!props.isPopupOpen) {
-        props.togglePopup()
+    if (enough) {
+      if (!props.isPopupOpen) {
+        props.togglePopup();
       } else {
-        console.log("implement wobbling dots animation")
+        console.log("implement wobbling dots animation");
       }
     } else {
       if (props.isPopupOpen) {
-        props.togglePopup()
+        props.togglePopup();
       }
     }
-
   }
 
   return (
@@ -181,6 +183,7 @@ export default function HomeButton(props) {
       <div>
         <Button>
           <CircleOuter
+            theme={props.theme}
             style={{
               ...outerCircleStyles,
               visibility: outerCircleStyles.opacity.interpolate(o =>
@@ -189,6 +192,7 @@ export default function HomeButton(props) {
             }}
           />
           <CircleInner
+            theme={props.theme}
             style={{
               ...innerCircleStyles,
               visibility: innerCircleStyles.opacity.interpolate(o =>
