@@ -54,7 +54,7 @@ export default function Button(props) {
 
   return (
     <ClickNHold
-      time={999} // Time to keep pressing. Default is 2
+      time={1} // Time to keep pressing. Default is 2
       onStart={triggerAnimation} // Start callback
       onEnd={endAnimation}
     >

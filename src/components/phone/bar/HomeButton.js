@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import { useSpring, animated } from "react-spring";
@@ -51,68 +51,89 @@ const GoogleDotGreen = styled(GoogleDot)`
 `;
 
 export default function HomeButton() {
+  const toContinueAnimation = useRef(true);
+
   const [outerCircleStyles, setOuterCircleStyles] = useSpring(() => ({
     from: { width: "14px", height: "14px", opacity: 1 },
-    config: { tension: 550 }
+    config: { tension: 650 }
   }));
 
   const [innerCircleStyles, setInnerCircleStyles] = useSpring(() => ({
     from: { width: "11px", height: "11px", opacity: 1 },
-    config: { tension: 550 }
+    config: { tension: 650 }
   }));
 
-  const [googleDotRedStyles, setGoogleDotRedStyles] = useSpring(() => ({
+  const [googleDotRedStyles, setGoogleDotRedStyles, stop] = useSpring(() => ({
     from: { marginTop: "0px", marginLeft: "0px" },
-    config: { tension: 550 }
+    config: { tension: 650 }
   }));
   const [googleDotBlueStyles, setGoogleDotBlueStyles] = useSpring(() => ({
     from: { marginLeft: "0px" },
-    config: { tension: 540 }
+    config: { tension: 650 }
   }));
   const [googleDotYellowStyles, setGoogleDotYellowStyles] = useSpring(() => ({
     from: { marginTop: "0px", marginLeft: "0px" },
-    config: { tension: 530 }
+    config: { tension: 650 }
   }));
   const [googleDotGreenStyles, setGoogleDotGreenStyles] = useSpring(() => ({
     from: { marginLeft: "0px" },
-    config: { tension: 520 }
+    config: { tension: 650 }
   }));
 
   async function triggerAnimation() {
     // helper function
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    setOuterCircleStyles({ to: { width: "0px", height: "0px", opacity: 0 } });
-    setInnerCircleStyles({ to: { width: "8px", height: "8px" } });
-
-    setGoogleDotRedStyles({ to: { marginTop: "-10px" } });
-    setGoogleDotBlueStyles({ to: { marginLeft: "-10px" } });
-    setGoogleDotYellowStyles({ to: { marginTop: "10px" } });
-    setGoogleDotGreenStyles({ to: { marginLeft: "10px" } });
-
-    await delay(500);
-
-    setInnerCircleStyles({
-      to: { width: "0px", height: "0px", opacity: 0 }
+    setOuterCircleStyles({
+      to: async (next, cancel) => {
+        await next({ width: "0px", height: "0px", opacity: 0 });
+        await delay(850)
+        await next({ width: "14px", height: "14px", opacity: 1 });
+      }
     });
-    setGoogleDotBlueStyles({ to: { marginLeft: "-26px" } });
-    setGoogleDotGreenStyles({ to: { marginLeft: "26px" } });
-    setGoogleDotYellowStyles({ to: { marginTop: "0px", marginLeft: "9px" } });
-    setGoogleDotRedStyles({ to: { marginTop: "0px", marginLeft: "-9px" } });
-
-    await delay(150)
-
-    setOuterCircleStyles({ to: { width: "14px", height: "14px", opacity: 1 } });
     setInnerCircleStyles({
-      to: { width: "11px", height: "11px", opacity: 1 }
+      to: async (next, cancel) => {
+        await next({ width: "8px", height: "8px" });
+        await next({ width: "0px", height: "0px", opacity: 0 });
+        await next({ width: "11px", height: "11px", opacity: 1 });
+      }
     });
-    setGoogleDotBlueStyles({ to: { marginLeft: "0px" } });
-    setGoogleDotGreenStyles({ to: { marginLeft: "0px" } });
-    setGoogleDotYellowStyles({ to: { marginLeft: "0px" } });
-    setGoogleDotRedStyles({ to: { marginLeft: "0px" } });
+
+    setGoogleDotRedStyles({
+      to: async (next, cancel) => {
+        await next({ marginTop: "-10px" });
+        await next({ marginTop: "0px", marginLeft: "-9px" });
+        await next({ marginLeft: "0px" });
+      }
+    });
+
+    setGoogleDotBlueStyles({
+      to: async (next, cancel) => {
+        await next({ marginLeft: "-10px" });
+        await next({ marginLeft: "-26px" });
+        await next({ marginLeft: "0px" });
+      }
+    });
+
+    setGoogleDotYellowStyles({
+      to: async (next, cancel) => {
+        await next({ marginTop: "10px" });
+        await next({ marginTop: "0px", marginLeft: "9px" });
+        await next({ marginLeft: "0px" });
+      }
+    });
+    setGoogleDotGreenStyles({
+      to: async (next, cancel) => {
+        await next({ marginLeft: "10px" });
+        await next({ marginLeft: "26px" });
+
+        await next({ marginLeft: "0px" });
+      }
+    });
   }
 
   function endAnimation() {
+    toContinueAnimation.current = false;
     setOuterCircleStyles({ to: { width: "14px", height: "14px", opacity: 1 } });
     setInnerCircleStyles({
       to: { width: "11px", height: "11px", opacity: 1 }
@@ -121,11 +142,12 @@ export default function HomeButton() {
     setGoogleDotYellowStyles({ to: { marginTop: "0px", marginLeft: "0px" } });
     setGoogleDotBlueStyles({ to: { marginLeft: "0px" } });
     setGoogleDotGreenStyles({ to: { marginLeft: "0px" } });
+    toContinueAnimation.current = true;
   }
 
   return (
     <ClickNHold
-      time={999} // Time to keep pressing. Default is 2
+      time={2} // Time to keep pressing. Default is 2
       onStart={triggerAnimation} // Start callback
       onEnd={endAnimation}
     >
