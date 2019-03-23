@@ -1,5 +1,6 @@
 import React from "react";
 import Bar from "./phone/Bar";
+import Popup from "./phone/Popup"
 import styled from "styled-components";
 import phone from "./phone/phone.png";
 
@@ -15,6 +16,7 @@ const Image = styled.div`
 
 class Phone extends React.Component {
   static Bar = Bar;
+  static Popup = Popup
 
   render() {
     return <Image {...this.props}>{this.props.children}</Image>;

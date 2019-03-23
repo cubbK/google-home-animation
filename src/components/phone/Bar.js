@@ -15,6 +15,7 @@ const Container = styled.div`
   margin: auto;
   display: flex;
   justify-content: space-between;
+  z-index: 1;
 `;
 
 export default function Bar(props) {
@@ -24,11 +25,12 @@ export default function Bar(props) {
         <img src={backIcon} alt="back" />
       </Button>
 
-      <HomeButton />
+      <HomeButton onTrigger={props.onTrigger} />
 
       <Button>
         <img src={menuIcon} alt="menu" />
       </Button>
+
     </Container>
   );
 }

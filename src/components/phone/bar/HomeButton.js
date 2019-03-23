@@ -56,7 +56,7 @@ const GoogleDotGreen = styled(GoogleDot)`
   background-color: ${googleColors.green};
 `;
 
-export default function HomeButton() {
+export default function HomeButton(props) {
   const toContinueAnimation = useRef(true);
 
   const config = { tension: 2600, friction: 100, easing: t => easeElasticIn(t) };
@@ -89,6 +89,7 @@ export default function HomeButton() {
   }));
 
   async function triggerAnimation() {
+    props.onTrigger()
     // helper function
     const delay = ms => new Promise(res => setTimeout(res, ms));
 

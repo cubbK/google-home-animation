@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Phone from "./components/Phone";
+import PhoneContainer from "./containers/PhoneContainer";
 import "normalize.css";
 import styled from "styled-components";
 
@@ -15,9 +15,7 @@ class App extends Component {
   render() {
     return (
       <Container>
-        <Phone>
-          <Phone.Bar />
-        </Phone>
+        <PhoneContainer />
       </Container>
     );
   }
