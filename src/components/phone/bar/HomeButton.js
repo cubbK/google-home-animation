@@ -89,7 +89,7 @@ export default function HomeButton(props) {
   }));
 
   async function triggerAnimation() {
-    props.onTrigger()
+    
     // helper function
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -148,8 +148,7 @@ export default function HomeButton(props) {
     });
   }
 
-  function endAnimation() {
-    toContinueAnimation.current = false;
+  function endAnimation(e, enough) {
     setOuterCircleStyles({ to: { width: "14px", height: "14px", opacity: 1 } });
     setInnerCircleStyles({
       to: { width: "11px", height: "11px", opacity: 1 }
@@ -158,12 +157,24 @@ export default function HomeButton(props) {
     setGoogleDotYellowStyles({ to: { marginTop: "0px", marginLeft: "0px" } });
     setGoogleDotBlueStyles({ to: { marginLeft: "0px" } });
     setGoogleDotGreenStyles({ to: { marginLeft: "0px" } });
-    toContinueAnimation.current = true;
+
+    if(enough) {
+      if(!props.isPopupOpen) {
+        props.togglePopup()
+      } else {
+        console.log("implement wobbling dots animation")
+      }
+    } else {
+      if (props.isPopupOpen) {
+        props.togglePopup()
+      }
+    }
+
   }
 
   return (
     <ClickNHold
-      time={2} // Time to keep pressing. Default is 2
+      time={0.4} // Time to keep pressing. Default is 2
       onStart={triggerAnimation} // Start callback
       onEnd={endAnimation}
     >

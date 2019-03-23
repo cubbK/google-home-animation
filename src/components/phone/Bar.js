@@ -25,7 +25,7 @@ export default function Bar(props) {
         <img src={backIcon} alt="back" />
       </Button>
 
-      <HomeButton onTrigger={props.onTrigger} />
+      <HomeButton togglePopup={props.togglePopup} isPopupOpen={props.isPopupOpen}/>
 
       <Button>
         <img src={menuIcon} alt="menu" />

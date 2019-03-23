@@ -10,7 +10,7 @@ export default function PhoneContainer() {
 
   return (
     <Phone>
-      <Phone.Bar onTrigger={togglePopup} />
+      <Phone.Bar togglePopup={togglePopup} isPopupOpen={isPopupOpen}/>
       <Phone.Popup isOpen={isPopupOpen}/>
     </Phone>
   );
