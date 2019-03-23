@@ -26,10 +26,16 @@ const PopupTopCircles = styled.img`
 `;
 
 export default function Popup(props) {
-  const animationStyles = useSpring({
-    height: props.isOpen ? "50%" : "0%",
+  const [animationStyles, setAnimationStiles] = useSpring(() => ({
+    from: {height: "0%"},
     config: { tension: 1000, friction: 50, clamp: true }
-  });
+  }));
+
+  if(props.isOpen) {
+    setAnimationStiles({height: "50%"});
+  } else {
+    setAnimationStiles({height: "0%"});
+  }
 
   return (
     <Container
