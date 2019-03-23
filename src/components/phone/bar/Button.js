@@ -13,6 +13,8 @@ const ButtonDiv = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
   transition: all 0.1s;
   :hover {
     background: rgba(255, 255, 255, 0.15);
