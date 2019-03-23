@@ -7,13 +7,13 @@ import HomeButton from "./bar/HomeButton";
 import { animated, useSpring } from "react-spring";
 
 const Container = styled(animated.div)`
-  width: calc(100% - 142px);
-  padding-left: 55px;
-  padding-right: 55px;
+  width: calc(100% - 80px);
+  padding-left: 40px;
+  padding-right: 40px;
   height: 35px;
   position: absolute;
-  bottom: 55px;
-  left: -3px;
+  bottom: 0px;
+  left: 0px;
   right: 0;
   margin: auto;
   display: flex;
