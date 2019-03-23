@@ -3,6 +3,12 @@ import styled from "styled-components";
 import Button from "./Button";
 import { useSpring, animated } from "react-spring";
 import ClickNHold from "react-click-n-hold";
+import {
+  easeExpIn,
+  easeBounceIn,
+  easeBounceInOut,
+  easeElasticIn
+} from "d3-ease";
 
 const googleColors = {
   red: "#DB4437",
@@ -53,31 +59,33 @@ const GoogleDotGreen = styled(GoogleDot)`
 export default function HomeButton() {
   const toContinueAnimation = useRef(true);
 
+  const config = { tension: 2600, friction: 100, easing: t => easeElasticIn(t) };
+
   const [outerCircleStyles, setOuterCircleStyles] = useSpring(() => ({
     from: { width: "14px", height: "14px", opacity: 1 },
-    config: { tension: 650 }
+    config: config
   }));
 
   const [innerCircleStyles, setInnerCircleStyles] = useSpring(() => ({
     from: { width: "11px", height: "11px", opacity: 1 },
-    config: { tension: 650 }
+    config: config
   }));
 
   const [googleDotRedStyles, setGoogleDotRedStyles, stop] = useSpring(() => ({
     from: { marginTop: "0px", marginLeft: "0px" },
-    config: { tension: 650 }
+    config: config
   }));
   const [googleDotBlueStyles, setGoogleDotBlueStyles] = useSpring(() => ({
     from: { marginLeft: "0px" },
-    config: { tension: 650 }
+    config: config
   }));
   const [googleDotYellowStyles, setGoogleDotYellowStyles] = useSpring(() => ({
     from: { marginTop: "0px", marginLeft: "0px" },
-    config: { tension: 650 }
+    config: config
   }));
   const [googleDotGreenStyles, setGoogleDotGreenStyles] = useSpring(() => ({
     from: { marginLeft: "0px" },
-    config: { tension: 650 }
+    config: config
   }));
 
   async function triggerAnimation() {
@@ -87,7 +95,7 @@ export default function HomeButton() {
     setOuterCircleStyles({
       to: async (next, cancel) => {
         await next({ width: "0px", height: "0px", opacity: 0 });
-        await delay(850)
+        await delay(250);
         await next({ width: "14px", height: "14px", opacity: 1 });
       }
     });
@@ -102,7 +110,9 @@ export default function HomeButton() {
     setGoogleDotRedStyles({
       to: async (next, cancel) => {
         await next({ marginTop: "-10px" });
+        // await delay(300);
         await next({ marginTop: "0px", marginLeft: "-9px" });
+        // await delay(150);
         await next({ marginLeft: "0px" });
       }
     });
@@ -110,7 +120,9 @@ export default function HomeButton() {
     setGoogleDotBlueStyles({
       to: async (next, cancel) => {
         await next({ marginLeft: "-10px" });
+        // await delay(300);
         await next({ marginLeft: "-26px" });
+        // await delay(150);
         await next({ marginLeft: "0px" });
       }
     });
@@ -118,15 +130,18 @@ export default function HomeButton() {
     setGoogleDotYellowStyles({
       to: async (next, cancel) => {
         await next({ marginTop: "10px" });
+        // await delay(300);
         await next({ marginTop: "0px", marginLeft: "9px" });
+        // await delay(150);
         await next({ marginLeft: "0px" });
       }
     });
     setGoogleDotGreenStyles({
       to: async (next, cancel) => {
         await next({ marginLeft: "10px" });
+        // await delay(300);
         await next({ marginLeft: "26px" });
-
+        // await delay(150);
         await next({ marginLeft: "0px" });
       }
     });
