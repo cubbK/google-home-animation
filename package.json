@@ -1,6 +1,7 @@
 {
   "name": "google-home-animation",
   "version": "0.1.0",
+  "homepage": "https://cubbk.github.io/google-home-animation/",
   "private": true,
   "dependencies": {
     "d3-ease": "^1.0.5",
