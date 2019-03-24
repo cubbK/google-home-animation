@@ -172,7 +172,7 @@ export default function HomeButton(props) {
 
   return (
     <ClickNHold
-      time={0.4} // Time to keep pressing. Default is 2
+      time={0.3} // Time to keep pressing. Default is 2
       onStart={triggerAnimation} // Start callback
       onEnd={endAnimation}
     >
