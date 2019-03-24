@@ -7,6 +7,32 @@ import playMusicIcon from "./popup/play-music-icon.png";
 import iconLeft from "./popup/popup-icon-left.png";
 import iconRight from "./popup/popup-icon-right.png";
 
+const googleColors = {
+  red: "#DB4437",
+  blue: "#4285F4",
+  yellow: "#F4B400",
+  green: "#0F9D58"
+};
+
+const GoogleDot = styled(animated.div)`
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+`;
+
+const GoogleDotRed = styled(GoogleDot)`
+  background-color: ${googleColors.red};
+`;
+const GoogleDotBlue = styled(GoogleDot)`
+  background-color: ${googleColors.blue};
+`;
+const GoogleDotYellow = styled(GoogleDot)`
+  background-color: ${googleColors.yellow};
+`;
+const GoogleDotGreen = styled(GoogleDot)`
+  background-color: ${googleColors.green};
+`;
+
 const Container = styled(animated.div)`
   width: calc(100% - 50px);
   height: calc(53% - 75px);
@@ -70,6 +96,14 @@ const BottomContainer = styled.div`
   }
 `;
 
+const GoogleDotsContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 33px;
+`;
+
 export default function Popup(props) {
   const [animationStyles, setAnimationStiles] = useSpring(() => ({
     from: { marginBottom: "-63%" },
@@ -80,6 +114,69 @@ export default function Popup(props) {
     setAnimationStiles({ marginBottom: "0%" });
   } else {
     setAnimationStiles({ marginBottom: "-63%" });
+  }
+
+  const config = {
+    duration: 850
+  };
+
+  // helper function
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
+  const [googleDotRedStyles, setGoogleDotRedStyles] = useSpring(() => ({
+    from: { translateY: "-1px" },
+    to: async (next, cancel) => {
+      await delay(200)
+      while (1) {
+        await next({ translateY: "1px" });
+        await next({ translateY: "-1px" });
+      }
+    },
+    config: config
+  }));
+  const [googleDotBlueStyles, setGoogleDotBlueStyles] = useSpring(() => ({
+    from: { translateY: "-1px" },
+    to: async (next, cancel) => {
+      await delay(200)
+      while (1) {
+        await next({ translateY: "1px" });
+        await next({ translateY: "-1px" });
+      }
+    },
+    config: config
+  }));
+  const [googleDotYellowStyles, setGoogleDotYellowStyles] = useSpring(() => ({
+    from: { translateY: "-1px" },
+    to: async (next, cancel) => {
+      await delay(400)
+      while (1) {
+        await next({ translateY: "1px" });
+        await next({ translateY: "-1px" });
+      }
+    },
+    config: config
+  }));
+  const [googleDotGreenStyles, setGoogleDotGreenStyles] = useSpring(() => ({
+    from: { translateY: "-1px" },
+    to: async (next, cancel) => {
+      await delay(600)
+      while (1) {
+        await next({ translateY: "1px" });
+        await next({ translateY: "-1px" });
+      }
+    },
+    config: config
+  }));
+
+  // setGoogleDotRedStyles({
+    
+  // });
+
+  function getStylesWithTransform(styles) {
+    return {
+      ...styles,
+      transform: styles.translateY.interpolate(y => `translateY(${y})`)
+    };
   }
 
   return (
@@ -93,11 +190,21 @@ export default function Popup(props) {
         </BubbleWithText>
         <BubbleWithText>
           <img alt="play" src={playMusicIcon} />
-          Play music А
+          Play music
         </BubbleWithText>
       </ActionBubbleContainer>
       <BottomContainer>
         <img alt="strange thing" src={iconLeft} />
+        <GoogleDotsContainer>
+          <GoogleDotBlue style={getStylesWithTransform(googleDotBlueStyles)} />
+          <GoogleDotRed style={getStylesWithTransform(googleDotRedStyles)} />
+          <GoogleDotYellow
+            style={getStylesWithTransform(googleDotYellowStyles)}
+          />
+          <GoogleDotGreen
+            style={getStylesWithTransform(googleDotGreenStyles)}
+          />
+        </GoogleDotsContainer>
         <img alt="compass" src={iconRight} />
       </BottomContainer>
     </Container>
