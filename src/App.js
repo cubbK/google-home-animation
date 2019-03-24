@@ -6,6 +6,7 @@ import styled from "styled-components";
 const Container = styled.div`
   background-color: #fdfdfd;
   display: flex;
+  min-width: min-content;
   align-items: center;
   justify-content: center;
   min-height: 100vh;

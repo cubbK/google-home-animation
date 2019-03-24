@@ -106,14 +106,14 @@ const GoogleDotsContainer = styled.div`
 
 export default function Popup(props) {
   const [animationStyles, setAnimationStiles] = useSpring(() => ({
-    from: { marginBottom: "-63%" },
+    from: { marginBottom: "-65%" },
     config: { tension: 1000, friction: 50, clamp: true }
   }));
 
   if (props.isOpen) {
     setAnimationStiles({ marginBottom: "0%" });
   } else {
-    setAnimationStiles({ marginBottom: "-63%" });
+    setAnimationStiles({ marginBottom: "-65%" });
   }
 
   const config = {
